@@ -53,7 +53,7 @@ if __name__ == '__main__':
       f.write("cd $SLURM_SUBMIT_DIR\n\n")
 
       # copy inputdata and the executable to the scratch-directory
-      f.write("cp * /scratch/$SLURM_JOB_ID\n\n")
+      f.write("cp -r * /scratch/$SLURM_JOB_ID\n\n")
 
       # change directory to the local scratch-directory, and run:
       f.write("cd /scratch/$SLURM_JOB_ID\n\n")
