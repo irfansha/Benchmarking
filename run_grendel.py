@@ -71,7 +71,7 @@ if __name__ == '__main__':
       f.write("time python3 run_benchmarks.py --path " + cur_domain_path + options + " --time_limit " + args.single_time_limit + " > out\n\n")
 
       # copy home the outputdata:
-      f.write("cp out $SLURM_SUBMIT_DIR/out.$SLURM_JOB_ID\n\n")
+      f.write("cp out $SLURM_SUBMIT_DIR/out_" + domain_name +  ".$SLURM_JOB_ID\n\n")
 
       command = 'sbatch run_' + encoding + "_" + domain_name + ".sh"
 
