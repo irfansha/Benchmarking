@@ -9,7 +9,7 @@ if __name__ == '__main__':
   text = "Generates and dispatches batch jobs for various domains and parameter sweep"
   parser = argparse.ArgumentParser(description=text,formatter_class=argparse.RawTextHelpFormatter)
   parser.add_argument("--partition", help="partition name", default = 'q48')
-  parser.add_argument("--mem", help="mem in GB, default 16 gb", default = '16')
+  parser.add_argument("--mem", help="mem in GB, default 16G", default = '16G')
   parser.add_argument("--time", help="estimated time in hours", default = '24')
   parser.add_argument("--single_time_limit", help="time limit for single instance in seconds, default 1800", default = '1800')
   parser.add_argument("--mail_type", help="mail type", default = 'END')
