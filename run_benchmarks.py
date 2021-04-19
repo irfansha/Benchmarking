@@ -77,8 +77,6 @@ if __name__ == '__main__':
   text = "A tool to benchmark Q-Planner on PDDL domains"
   parser = argparse.ArgumentParser(description=text,formatter_class=argparse.RawTextHelpFormatter)
   parser.add_argument("--path", help="path for domain and problem files", default = 'testing/testcases/Blocks/')
-  parser.add_argument("--domain", help="domain file path", default = 'domain.pddl')
-  parser.add_argument("--problem", help="problem file path", default = 'prob01.pddl')
   parser.add_argument("--planner_path", help="Path for planner, for ex: qplanner")
   parser.add_argument("--plan_out", help="plan output file path", default = 'intermediate_files/cur_plan')
   parser.add_argument("--plan_length", type=int,default = 4)
