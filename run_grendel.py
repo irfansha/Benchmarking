@@ -11,6 +11,7 @@ if __name__ == '__main__':
   parser.add_argument("--partition", help="partition name", default = 'q48')
   parser.add_argument("--mem", help="mem in GB, default 16 gb", default = '16')
   parser.add_argument("--time", help="estimated time in hours", default = '24')
+  parser.add_argument("--single_time_limit", help="time limit for single instance in seconds, default 1800", default = '1800')
   parser.add_argument("--mail_type", help="mail type", default = 'END')
   parser.add_argument("--mail_user", help="mail", default = 'irfansha.shaik@cs.au.dk')
   parser.add_argument("--typed", type =int, help=" typed/untyped domains [1/0] default 1", default = 1)
@@ -67,7 +68,7 @@ if __name__ == '__main__':
       # Updating the path for specific domain:
       cur_domain_path = os.path.join(args.input_dir, domain_name)
 
-      f.write("time python3 run_benchmarks.py --path " + cur_domain_path + options + " --time_limit 1800 > out\n\n")
+      f.write("time python3 run_benchmarks.py --path " + cur_domain_path + options + " --time_limit " + args.single_time_limit + " > out\n\n")
 
       # copy home the outputdata:
       f.write("cp out $SLURM_SUBMIT_DIR/out.$SLURM_JOB_ID\n\n")
