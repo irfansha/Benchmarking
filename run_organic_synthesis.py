@@ -71,7 +71,7 @@ if __name__ == '__main__':
 
     options = " -e sc-UE --preprocessing 2 --planner_path Q-Planner --step 1 > "
 
-    f.write("time python3 run_benchmarks.py --path " + os.path.join(args.input_dir,test_domain_path,domain_name) + " " + default_file_names + options + args.output_dir + "out_" + domain_name + "_$SLURM_JOB_ID\n")
+    f.write("time python3 run_benchmarks.py --path " + os.path.join(args.input_dir,test_domain_path,domain_name) + " " + default_file_names + options + args.output_dir + "/out_" + domain_name + "_$SLURM_JOB_ID\n")
 
     command = 'sbatch run_' + domain_name + ".sh"
 
