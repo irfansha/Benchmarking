@@ -50,7 +50,7 @@ if __name__ == '__main__':
     domain_name = "problem" + str(i).zfill(2)
 
     # Generate batch script:
-    f = open("run_" + domain_name + ".sh", "w")
+    f = open("run_" + args.problem_set + "_" +domain_name + ".sh", "w")
 
     f.write("#!/bin/bash\n")
     f.write("#SBATCH --partition=" + args.partition + "\n")
@@ -73,7 +73,7 @@ if __name__ == '__main__':
 
     f.write("time python3 run_benchmarks.py --path " + os.path.join(args.input_dir,test_domain_path,domain_name) + " " + default_file_names + options + args.output_dir + "/out_" + domain_name + "_$SLURM_JOB_ID\n")
 
-    command = 'sbatch run_' + domain_name + ".sh"
+    command = 'sbatch run_' + args.problem_set + "_" + domain_name + ".sh"
 
 
 
