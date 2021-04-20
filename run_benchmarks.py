@@ -35,6 +35,7 @@ def run_instance(domain_file, problem_file, args):
       command = 'python3 ' + planner_command_path + ' --path ' + args.path + \
                 ' --domain ' + domain_file + ' --problem ' + problem_file + \
                 ' --planner_path ' + args.planner_path + \
+                ' --restricted_forall ' + str(args.restricted_forall) + \
                 ' -e ' + args.e + ' --run ' + str(args.run) + ' --plan_length ' + str(k) + \
                 ' --val_testing ' + str(args.val_testing) + ' --time_limit ' + str(remaining_time) + \
                 ' --preprocessing ' + str(args.preprocessing) + ' --solver ' + str(args.solver) + \
@@ -97,7 +98,7 @@ if __name__ == '__main__':
                                        1 = quabs
                                        2 = caqe'''),default = 2)
   parser.add_argument("--solver_out", help="solver output file",default = 'intermediate_files/solver_output')
-  parser.add_argument("--restricted_forall", type=int, help=" Additional clause to restrict forall branches [0/1/2], default 1",default = 1)
+  parser.add_argument("--restricted_forall", type=int, help=" Additional clause to restrict forall branches [0/1/2], default 1",default = 0)
   parser.add_argument("--preprocessing", type = int, help=textwrap.dedent('''
                                        Preprocessing:
                                        0 = off
