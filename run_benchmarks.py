@@ -103,7 +103,7 @@ if __name__ == '__main__':
                                        0 = off
                                        1 = bloqqer (version 37)
                                        2 = bloqqer-qdo (version 37)'''),default = 0)
-  parser.add_argument("--time_limit", type=int, help="Solving time limit in seconds, default 900 seconds",default = 1800)
+  parser.add_argument("--time_limit", type=int, help="Solving time limit in seconds, default 1800 seconds",default = 1800)
 
   args = parser.parse_args()
   # Checking if directory exists:
