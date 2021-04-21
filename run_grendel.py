@@ -29,7 +29,7 @@ if __name__ == '__main__':
                     "depot/", "freecell/", "movie/", "mprime/"]
 
 
-  encoding_variants = ["s_UE_pre"]
+  encoding_variants = ["sc_UE_pre"]
 
   for encoding in encoding_variants:
     for domain_name in test_domains:
@@ -60,15 +60,18 @@ if __name__ == '__main__':
       f.write("export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-1}\n\n")
 
       if(encoding == 's_UE'):
-        if (args.ue == 0):
-          options = " -e s-UE "
+        options = " -e s-UE "
+      elif(encoding == 'sc_UE'):
+        options = " -e sc-UE "
       elif(encoding == 's_UE_pre'):
-          options = " -e s-UE --preprocessing 2 --planner_path Q-Planner"
+        options = " -e s-UE --preprocessing 2 "
+      elif(encoding == 'sc_UE_pre'):
+        options = " -e sc-UE --preprocessing 2 "
 
       # Updating the path for specific domain:
       cur_domain_path = os.path.join(args.input_dir, domain_name)
 
-      f.write("time python3 run_benchmarks.py --path " + cur_domain_path + options + " --time_limit " + args.single_time_limit + " > out\n\n")
+      f.write("time python3 run_benchmarks.py --path " + cur_domain_path + options + " --planner_path Q-Planner --time_limit " + args.single_time_limit + " > out\n\n")
 
       # copy home the outputdata:
       f.write("cp out $SLURM_SUBMIT_DIR/out_" + domain_name +  ".$SLURM_JOB_ID\n\n")
