@@ -83,6 +83,7 @@ if __name__ == '__main__':
   parser.add_argument("--plan_out", help="plan output file path", default = 'intermediate_files/cur_plan')
   parser.add_argument("--plan_length", type=int,default = 4)
   parser.add_argument("--step", help="step value for benchmarking, 5 default", type=int,default = 5)
+  parser.add_argument("--num_iterations", help="5 default", type=int,default = 5)
   parser.add_argument("-e", help=textwrap.dedent('''
                                   encoding types:
                                   s-UE = Simple Ungrounded Encoding
@@ -128,10 +129,10 @@ if __name__ == '__main__':
   # Running each instances with time limit:
   for file_path in files_list:
     # We assume rest of the testcases are too big as well:
-    if (count > 4):
+    if (count > args.num_iterations * 4):
       break
-    # Running each instance 5 times:
-    for i in range(5):
+    # Running each instance interation times:
+    for i in range(args.num_iterations):
       # Only considering problem files:
       if ('domain' not in file_path and '.py' not in file_path):
         path, file_name = os.path.split(file_path)
