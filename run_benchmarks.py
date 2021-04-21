@@ -15,9 +15,9 @@ def natural_keys(text):
     return [ atoi(c) for c in re.split(r'(\d+)', text) ]
 
 
-def run_instance(domain_file, problem_file, args):
+def run_instance(domain_file, problem_file, args, iteration):
     print("---------------------------------------------------------------------------------------------")
-    print("Running " + problem_file)
+    print("Running " + problem_file + ", iteration " + str(iteration+1))
     print("---------------------------------------------------------------------------------------------")
     k = 0
     remaining_time = args.time_limit
@@ -85,13 +85,14 @@ if __name__ == '__main__':
   parser.add_argument("--step", help="step value for benchmarking, 5 default", type=int,default = 5)
   parser.add_argument("-e", help=textwrap.dedent('''
                                   encoding types:
-                                  s-UE = Simple Ungrounded Encoding'''),default = 's-UE')
+                                  s-UE = Simple Ungrounded Encoding
+                                  sc-UE = Strongly constrained UE, default s-UE'''),default = 's-UE')
   parser.add_argument("--run", type=int, help=textwrap.dedent('''
                                Three levels of execution:
                                0 = only generate encoding
                                1 = test plan existence
                                2 = extract the plan if found'''),default = 2)
-  parser.add_argument("--val_testing", type=int, help="[0/1], default 0", default = 1)
+  parser.add_argument("--val_testing", type=int, help="[0/1], default 1", default = 1)
   parser.add_argument("--encoding_format", type=int, help="Encoding format: [1 = QCIR14 2 = QDIMACS], default 2",default = 2)
   parser.add_argument("--encoding_out", help="output encoding file",default = 'intermediate_files/encoding')
   parser.add_argument("--intermediate_encoding_out", help="output intermediate encoding file",default = 'intermediate_files/intermediate_encoding')
@@ -103,7 +104,7 @@ if __name__ == '__main__':
   parser.add_argument("--restricted_forall", type=int, help=" Additional clause to restrict forall branches [0/1/2], default 1",default = 0)
   parser.add_argument("--preprocessing", type = int, help=textwrap.dedent('''
                                        Preprocessing:
-                                       0 = off
+                                       0 = off (default)
                                        1 = bloqqer (version 37)
                                        2 = bloqqer-qdo (version 37)'''),default = 0)
   parser.add_argument("--time_limit", type=int, help="Solving time limit in seconds, default 1800 seconds",default = 1800)
@@ -126,14 +127,16 @@ if __name__ == '__main__':
 
   # Running each instances with time limit:
   for file_path in files_list:
-      # We assume rest of the testcases are too big as well:
-      if (count > 4):
-        break
+    # We assume rest of the testcases are too big as well:
+    if (count > 4):
+      break
+    # Running each instance 5 times:
+    for i in range(5):
       # Only considering problem files:
       if ('domain' not in file_path and '.py' not in file_path):
         path, file_name = os.path.split(file_path)
         assert(path == args.path)
-        timed_out = run_instance(domain_name, file_name, args)
+        timed_out = run_instance(domain_name, file_name, args, i)
         if (timed_out):
           count = count + 1
           continue
