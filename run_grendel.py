@@ -42,7 +42,7 @@ if __name__ == '__main__':
       f.write("#SBATCH --mem=" + args.mem + "\n")
       f.write("#SBATCH --ntasks=1\n")
       f.write("#SBATCH --ntasks-per-node=1\n")
-      f.write("#SBATCH --cpus-per-task=5\n")
+      f.write("#SBATCH --cpus-per-task=1\n")
       f.write("#SBATCH --time=" + args.time + ":00:00" + "\n")
       f.write("#SBATCH --mail-type=" + args.mail_type + "\n")
       f.write("#SBATCH --mail-user=" + args.mail_user + "\n\n")
