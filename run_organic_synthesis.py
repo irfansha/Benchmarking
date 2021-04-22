@@ -12,7 +12,7 @@ if __name__ == '__main__':
   parser.add_argument("--nodes", help="no of nodes", default = '1')
   parser.add_argument("--encoding", help="[M-seq/UE]", default = 'UE')
   parser.add_argument("--mem", help="mem in GB, default 0 i.e. all of it", default = '0')
-  parser.add_argument("--time", help="estimated time in hours", default = '1')
+  parser.add_argument("--time", help="estimated time in hours", default = '7')
   parser.add_argument("--mail_type", help="mail type", default = 'END')
   parser.add_argument("--mail_user", help="mail", default = 'irfansha.shaik@cs.au.dk')
   parser.add_argument("--input_dir", help="directory path for input files")
@@ -66,9 +66,9 @@ if __name__ == '__main__':
 
     f.write("cd $SLURM_SUBMIT_DIR\n\n")
 
-    default_file_names = ' --encoding_out /scratch/$SLURM_JOB_ID/encoding_$SLURM_JOB_ID --intermediate_encoding_out /scratch/$SLURM_JOB_ID/intermediate_encoding_$SLURM_JOB_ID --solver_out /scratch/$SLURM_JOB_ID/solver_out_$SLURM_JOB_ID --plan_out /scratch/$SLURM_JOB_ID/plan_$SLURM_JOB_ID '
+    default_file_names = ' --encoding_out /scratch/$SLURM_JOB_ID/encoding_$SLURM_JOB_ID --preprocessed_encoding_out /scratch/$SLURM_JOB_ID/preprocessed_$SLURM_JOB_ID --intermediate_encoding_out /scratch/$SLURM_JOB_ID/intermediate_encoding_$SLURM_JOB_ID --solver_out /scratch/$SLURM_JOB_ID/solver_out_$SLURM_JOB_ID --plan_out /scratch/$SLURM_JOB_ID/plan_$SLURM_JOB_ID '
 
-    options = " -e sc-UE --preprocessing 2 --planner_path Q-Planner --time_limit 3000 --step 1 > "
+    options = " -e s-UE --preprocessing 1 --solver 3 --planner_path Q-Planner --time_limit 24600 --step 1 > "
 
     f.write("time python3 run_benchmarks.py --path " + os.path.join(args.input_dir,test_domain_path,domain_name) + " " + default_file_names + options + args.output_dir + "/out_" + domain_name + "_$SLURM_JOB_ID\n")
 
@@ -81,5 +81,5 @@ if __name__ == '__main__':
     f.close()
 
 
-    print(command)
-    #os.popen(command)
+    #print(command)
+    os.popen(command)
