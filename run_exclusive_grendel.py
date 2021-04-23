@@ -26,9 +26,10 @@ if __name__ == '__main__':
                     "Thoughtful", "tidybot-opt11-strips",
                     "visitall-opt11-strips"]
   else:
-    test_domains = ["grid", "logistics00", "mystery",
-                    "blocks-3op", "gripper",
-                    "depot", "freecell", "movie", "mprime"]
+    test_domains = ["mprime", "mystery"]
+                    #"grid", "logistics00", "mystery",
+                    #"blocks-3op", "gripper",
+                    #"depot", "freecell", "movie", "mprime"]
 
 
   # Checking if out directory exits:
