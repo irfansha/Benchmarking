@@ -28,7 +28,7 @@ if __name__ == '__main__':
   else:
     test_domains = ["grid", "logistics00", "mystery",
                     "blocks-3op", "gripper",
-                    "depot/", "freecell/", "movie/", "mprime/"]
+                    "depot", "freecell", "movie", "mprime"]
 
 
   # Checking if out directory exits:
