@@ -10,7 +10,6 @@ if __name__ == '__main__':
   parser = argparse.ArgumentParser(description=text,formatter_class=argparse.RawTextHelpFormatter)
   parser.add_argument("--partition", help="partition name", default = 'q48')
   parser.add_argument("--nodes", help="no of nodes", default = '1')
-  parser.add_argument("--encoding", help="[M-seq/UE]", default = 'UE')
   parser.add_argument("--mem", help="mem in GB, default 0 i.e. all of it", default = '0')
   parser.add_argument("--time", help="estimated time in hours", default = '7')
   parser.add_argument("--mail_type", help="mail type", default = 'END')
@@ -81,5 +80,5 @@ if __name__ == '__main__':
     f.close()
 
 
-    #print(command)
-    os.popen(command)
+    print(command)
+    #os.popen(command)
