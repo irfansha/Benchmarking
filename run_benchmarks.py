@@ -80,7 +80,7 @@ if __name__ == '__main__':
   text = "A tool to benchmark Q-Planner on PDDL domains"
   parser = argparse.ArgumentParser(description=text,formatter_class=argparse.RawTextHelpFormatter)
   parser.add_argument("--path", help="path for domain and problem files", default = 'testing/testcases/Blocks/')
-  parser.add_argument("--planner_path", help="Path for planner, for ex: qplanner")
+  parser.add_argument("--planner_path", help="Path for planner, for ex: qplanner", default= './Q-Planner')
   parser.add_argument("--plan_out", help="plan output file path", default = 'intermediate_files/cur_plan')
   parser.add_argument("--plan_length", type=int,default = 4)
   parser.add_argument("--step", help="step value for benchmarking, 5 default", type=int,default = 5)
@@ -109,7 +109,8 @@ if __name__ == '__main__':
                                        Preprocessing:
                                        0 = off (default)
                                        1 = bloqqer (version 37)
-                                       2 = bloqqer-qdo (version 37)'''),default = 0)
+                                       2 = bloqqer-qdo (version 37)
+                                       3 = HQSpre'''),default = 0)
   parser.add_argument("--time_limit", type=int, help="Solving time limit in seconds, default 1800 seconds",default = 1800)
 
   args = parser.parse_args()
