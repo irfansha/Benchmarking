@@ -87,30 +87,30 @@ if __name__ == '__main__':
   parser.add_argument("--num_iterations", help="1 default", type=int,default = 1)
   parser.add_argument("-e", help=textwrap.dedent('''
                                   encoding types:
-                                  s-UE = Simple Ungrounded Encoding
-                                  sc-UE = Strongly constrained UE, default s-UE'''),default = 's-UE')
+                                  s-UE = Simple Ungrounded Encoding (default)
+                                  rs-UE = Simple Ungrounded Encoding with reused parameter variables
+                                  sc-UE = Strongly Constrained Ungrounded Encoding
+                                  l-UE = Logarithmic Ungrounded Encoding (DQBF)'''),default = 's-UE')
   parser.add_argument("--run", type=int, help=textwrap.dedent('''
                                Three levels of execution:
                                0 = only generate encoding
                                1 = test plan existence
                                2 = extract the plan if found'''),default = 2)
   parser.add_argument("--val_testing", type=int, help="[0/1], default 1", default = 1)
-  parser.add_argument("--encoding_format", type=int, help="Encoding format: [1 = QCIR14 2 = QDIMACS], default 2",default = 2)
+  parser.add_argument("--encoding_format", help=textwrap.dedent('''
+                                       Encoding format:
+                                       [qcir/ qdimacs (default)/ dqcir/ dqdimacs'''),default = 'qdimacs')
   parser.add_argument("--encoding_out", help="output encoding file",default = 'intermediate_files/encoding')
   parser.add_argument("--preprocessed_encoding_out", help="preprocessed encoding file",default = 'intermediate_files/preprocessed_encoding')
   parser.add_argument("--intermediate_encoding_out", help="output intermediate encoding file",default = 'intermediate_files/intermediate_encoding')
-  parser.add_argument("--solver", type=int, help=textwrap.dedent('''
+  parser.add_argument("--solver", help=textwrap.dedent('''
                                        Solver:
-                                       1 = quabs
-                                       2 = caqe'''),default = 2)
+                                       [quabs/ caqe (default)/ rareqs/ pedant/ qute]'''),default = 'caqe')
   parser.add_argument("--solver_out", help="solver output file",default = 'intermediate_files/solver_output')
   parser.add_argument("--restricted_forall", type=int, help=" Additional clause to restrict forall branches [0/1/2], default 1",default = 0)
-  parser.add_argument("--preprocessing", type = int, help=textwrap.dedent('''
+  parser.add_argument("--preprocessing", help=textwrap.dedent('''
                                        Preprocessing:
-                                       0 = off (default)
-                                       1 = bloqqer (version 37)
-                                       2 = bloqqer-qdo (version 37)
-                                       3 = HQSpre'''),default = 0)
+                                       [off (default)/ bloqqer/ bloqqer-qdo/ hqspre/ qratpre+'''),default = 'off')
   parser.add_argument("--time_limit", type=int, help="Solving time limit in seconds, default 1800 seconds",default = 1800)
 
   args = parser.parse_args()

@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     default_file_names = ' --encoding_out /scratch/$SLURM_JOB_ID/encoding_$SLURM_JOB_ID --preprocessed_encoding_out /scratch/$SLURM_JOB_ID/preprocessed_$SLURM_JOB_ID --intermediate_encoding_out /scratch/$SLURM_JOB_ID/intermediate_encoding_$SLURM_JOB_ID --solver_out /scratch/$SLURM_JOB_ID/solver_out_$SLURM_JOB_ID --plan_out /scratch/$SLURM_JOB_ID/plan_$SLURM_JOB_ID '
 
-    options = " -e s-UE --preprocessing 1 --solver 3 --planner_path Q-Planner --time_limit 24600 --step 1 > "
+    options = " -e s-UE --preprocessing hqspre --solver caqe --planner_path Q-Planner --time_limit 10800 --step 1 > "
 
     f.write("time python3 run_benchmarks.py --path " + os.path.join(args.input_dir,test_domain_path,domain_name) + " " + default_file_names + options + args.output_dir + "/out_" + domain_name + "_$SLURM_JOB_ID\n")
 
