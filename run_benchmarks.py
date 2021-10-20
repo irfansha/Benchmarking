@@ -34,7 +34,7 @@ def run_instance(domain_file, problem_file, args, iteration):
       # domain and problem files are new:
       command = 'python3 ' + planner_command_path + ' --path ' + args.path + \
                 ' --domain ' + domain_file + ' --problem ' + problem_file + \
-                ' --planner_path ' + args.planner_path + \
+                ' --planner_path ' + args.planner_path + ' --ignore_noop ' + str(args.ignore_noop) + \
                 ' --restricted_forall ' + str(args.restricted_forall) + \
                 ' -e ' + args.e + ' --run ' + str(args.run) + ' --plan_length ' + str(k) + \
                 ' --val_testing ' + str(args.val_testing) + ' --time_limit ' + str(remaining_time) + \
@@ -101,6 +101,7 @@ if __name__ == '__main__':
                                        Encoding format:
                                        [qcir/ qdimacs (default)/ dqcir/ dqdimacs'''),default = 'qdimacs')
   parser.add_argument("--encoding_out", help="output encoding file",default = 'intermediate_files/encoding')
+  parser.add_argument("--ignore_noop", type=int, help="[0/1] for optimal plans we can ignore noop action, default 0", default = 0)
   parser.add_argument("--preprocessed_encoding_out", help="preprocessed encoding file",default = 'intermediate_files/preprocessed_encoding')
   parser.add_argument("--intermediate_encoding_out", help="output intermediate encoding file",default = 'intermediate_files/intermediate_encoding')
   parser.add_argument("--solver", help=textwrap.dedent('''
