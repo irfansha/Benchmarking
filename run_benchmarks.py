@@ -1,9 +1,10 @@
 # Irfansha Shaik, 18.04.2021, Aarhus.
 
-import argparse, textwrap
+import argparse
 import glob
-import re
 import os
+import re
+import textwrap
 from pathlib import Path
 from resource import *
 
@@ -84,6 +85,8 @@ if __name__ == '__main__':
   parser.add_argument("--plan_out", help="plan output file path", default = 'intermediate_files/cur_plan')
   parser.add_argument("--plan_length", type=int,default = 4)
   parser.add_argument("--step", help="step value for benchmarking, 5 default", type=int,default = 5)
+  parser.add_argument("--single_instance_run", help="[0/1] default 0", type=int,default = 0)
+  parser.add_argument("--problem_name", help="problem name")
   parser.add_argument("--num_iterations", help="1 default", type=int,default = 1)
   parser.add_argument("-e", help=textwrap.dedent('''
                                   encoding types:
@@ -108,7 +111,7 @@ if __name__ == '__main__':
                                        Solver:
                                        [quabs/ caqe (default)/ rareqs/ pedant/ qute]'''),default = 'caqe')
   parser.add_argument("--solver_out", help="solver output file",default = 'intermediate_files/solver_output')
-  parser.add_argument("--restricted_forall", type=int, help=" Additional clause to restrict forall branches [0/1/2], default 1",default = 0)
+  parser.add_argument("--restricted_forall", type=int, help=" Additional clause to restrict forall branches [0/1/2], default 0",default = 0)
   parser.add_argument("--preprocessing", help=textwrap.dedent('''
                                        Preprocessing:
                                        [off (default)/ bloqqer/ bloqqer-qdo/ hqspre/ qratpre+'''),default = 'off')
@@ -119,29 +122,36 @@ if __name__ == '__main__':
   if not Path(args.path).is_dir():
     print("Invalid directory path: " + args.path)
     exit
-  files_list = glob.glob(os.path.join(args.path, "*"))
-  files_list.sort(key=natural_keys)
 
-  for file_path in files_list:
-    if ('domain' in file_path):
-      path, domain_name = os.path.split(file_path)
-      assert(path == args.path)
-      break
-
-  count = 0
-
-  # Running each instances with time limit:
-  for file_path in files_list:
-    # We assume rest of the testcases are too big as well:
-    if (count > args.num_iterations * 4):
-      break
-    # Running each instance interation times:
+  # If single instance run is chosen, we do not run the whole directory:
+  if (args.single_instance_run == 1):
+    domain_name = "domain.pddl"
     for i in range(args.num_iterations):
-      # Only considering problem files:
-      if ('domain' not in file_path and '.py' not in file_path):
-        path, file_name = os.path.split(file_path)
+      run_instance(domain_name, args.problem_name, args, i)
+  else:
+    files_list = glob.glob(os.path.join(args.path, "*"))
+    files_list.sort(key=natural_keys)
+
+    for file_path in files_list:
+      if ('domain' in file_path):
+        path, domain_name = os.path.split(file_path)
         assert(path == args.path)
-        timed_out = run_instance(domain_name, file_name, args, i)
-        if (timed_out):
-          count = count + 1
-          continue
+        break
+
+    count = 0
+
+    # Running each instances with time limit:
+    for file_path in files_list:
+      # We assume rest of the testcases are too big as well:
+      if (count > args.num_iterations * 4):
+        break
+      # Running each instance interation times:
+      for i in range(args.num_iterations):
+        # Only considering problem files:
+        if ('domain' not in file_path and '.py' not in file_path):
+          path, file_name = os.path.split(file_path)
+          assert(path == args.path)
+          timed_out = run_instance(domain_name, file_name, args, i)
+          if (timed_out):
+            count = count + 1
+            continue
