@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
       options = " --single_instance_run 1 -e s-UE --preprocessing bloqqer-qdo --solver caqe --planner_path Q-Planner --time_limit 10800 --step 5 > "
 
-      f.write("time python3 run_benchmarks.py --path " + os.path.join(args.input_dir,domain_path) + " --problem_name " + file_name + " " + default_file_names + options + args.output_dir + "/out_" + domain_name + "_$SLURM_JOB_ID\n")
+      f.write("time python3 run_benchmarks.py --path " + os.path.join(args.input_dir,domain_path) + " --problem_name " + file_name + " " + default_file_names + options + args.output_dir + "/out_" + domain_path.replace("/", "_") + "_" +file_name  + "_$SLURM_JOB_ID\n")
 
       command = 'sbatch run_' + domain_path.replace("/", "_") + "_" + file_name + ".sh"
 
